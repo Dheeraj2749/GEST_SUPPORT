@@ -106,3 +106,4 @@ function updateClocks() {
 
 updateClocks();
 setInterval(updateClocks, 1000);
+
