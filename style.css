@@ -39,6 +39,14 @@ h1 {
     align-items: center;
 }
 
+/* Center-align the date text inside each timezone card */
+.timezone .date {
+  display: block;        /* ensure it behaves as a block element */
+  text-align: center;    /* horizontal centering */
+  margin: 0 auto;        /* optional: centers in flex/grid layouts */
+}
+
+
 .timezone h2 {
     font-size: clamp(14px, 2vw, 26px);   /* balanced size */
     font-weight: 800;                    /* not too thick */
@@ -57,7 +65,7 @@ h1 {
 }
 
 .date {
-    font-size: clamp(12px, 2vw, 45px);
+    font-size: clamp(12px, 2vw, 30px);
     font-weight: 650
 }
 
