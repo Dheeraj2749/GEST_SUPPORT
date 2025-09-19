@@ -1,0 +1,59 @@
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+h1 {
+    font-size: clamp(16px, 3vw, 48px);
+    margin: 16px 0;
+    text-align: center;
+    color: #2c3e50;
+    font-weight: 700;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    width: 95%;
+    max-width: 1600px;
+}
+
+.timezone {
+    background: linear-gradient(120deg, #ffffff 60%, #f6f8fc 100%);
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(44,62,80,0.10);
+    padding: clamp(12px, 2vw, 24px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.timezone h2 {
+    font-size: clamp(14px, 2vw, 28px);
+    margin-bottom: 1rem;
+}
+
+.analog-clock {
+    width: clamp(70px, 10vw, 160px);
+    height: clamp(70px, 10vw, 160px);
+}
+
+.date {
+    font-size: clamp(12px, 1.5vw, 22px);
+}
+.time {
+    font-size: clamp(14px, 2vw, 28px);
+    font-weight: 700;
+}
+.utc-label {
+    font-size: clamp(10px, 1vw, 16px);
+    margin-top: 8px;
+}
