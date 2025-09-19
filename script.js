@@ -33,11 +33,25 @@ function format12Hour(date) {
 }
 
 function formatDateDMY(date) {
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
+    const day = date.getDate();
+
+    // Determine the ordinal suffix
+    const suffix = (d => {
+        if (d > 3 && d < 21) return 'th'; // catch 11th–13th
+        switch (d % 10) {
+            case 1: return 'st';
+            case 2: return 'nd';
+            case 3: return 'rd';
+            default: return 'th';
+        }
+    })(day);
+
+    // Get first three letters of the month with capitalized first letter
+    const monthAbbrev = date.toLocaleString('en-US', { month: 'short' }); // e.g., "Sep"
+
+    return `${monthAbbrev} ${day}${suffix}`;
 }
+
 
 function getDayLabel(zoneDate, localDate) {
     const zoneDay = zoneDate.getDate();
