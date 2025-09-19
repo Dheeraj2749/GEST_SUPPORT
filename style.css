@@ -79,3 +79,12 @@ h1 {
     font-weight: 500;
     margin-top: 9px;
 }
+
+.number {
+  position: absolute;
+  font-size: 0.9em;
+  font-weight: bold;
+  color: #2c3e50;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+}
