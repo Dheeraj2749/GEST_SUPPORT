@@ -2,7 +2,7 @@ body {
     font-family: 'Segoe UI', Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+    background: linear-gradient(135deg, #1c4ad3 0%, #91aed6 100%);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -88,4 +88,5 @@ h1 {
   transform: translate(-50%, -50%);
   z-index: 0;
 }
+
 
