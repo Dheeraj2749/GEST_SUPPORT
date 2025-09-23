@@ -6,7 +6,7 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
 }
 
@@ -88,5 +88,6 @@ h1 {
   transform: translate(-50%, -50%);
   z-index: 0;
 }
+
 
 
