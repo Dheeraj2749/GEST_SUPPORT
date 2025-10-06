@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GEST SUPPORT ZONE</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Background and layout */
+    html, body {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+       /* Hide cursor for TV mode */
+    }
+
+    /* Font scaling */
+    html {
+      font-size: clamp(12px, 1vw + 0.5vh, 20px);
+    }
+
+    /* Prevent screen dimming (if used on smart displays) */
+    @media (display-mode: fullscreen) {
+      body {
+        user-select: none;
+      }
+    }
+
+    /* Smooth transitions for clock updates */
+    .time {
+      transition: all 0.2s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+  <div class="flex flex-col items-center justify-center w-full h-full text-white text-center px-4">
+    <!-- Title -->
+    <h1 class="font-bold mb-[4vh] text-[clamp(2rem,5vw,5rem)] tracking-wide leading-tight">
+      GEST SUPPORT ZONE
+    </h1>
+
+    <!-- 2x2 Timezone Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-[4vh] w-full max-w-[90vw] max-h-[80vh] items-center justify-center">
+      <!-- IST -->
+      <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-[3vh] shadow-xl flex flex-col justify-center items-center h-full">
+        <h2 class="text-[clamp(1rem,2vw,2.5rem)] font-bold mb-2">Indian Standard Time (IST)</h2>
+        <p id="ist-time" class="time text-[clamp(1.8rem,5vw,6rem)] font-bold"></p>
+        <p id="ist-date" class="text-[clamp(1.2rem,2.5vw,2.5rem)] font-semibold mt-1"></p>
+        <p class="text-[clamp(1rem,2vw,2.5rem)] mt-1">GMT+5:30 (Today)</p>
+      </div>
+
+      <!-- EST -->
+      <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-[3vh] shadow-xl flex flex-col justify-center items-center h-full">
+        <h2 class="text-[clamp(1rem,2vw,2.5rem)] font-bold mb-2">Eastern Standard Time (EST)</h2>
+        <p id="est-time" class="time text-[clamp(1.8rem,5vw,6rem)] font-bold"></p>
+        <p id="est-date" class="text-[clamp(1.2rem,2.5vw,2.5rem)] font-semibold mt-1"></p>
+        <p class="text-[clamp(1rem,2vw,2.5rem)] mt-1">GMT-5:00 (Today)</p>
+      </div>
+
+      <!-- MDT -->
+      <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-[3vh] shadow-xl flex flex-col justify-center items-center h-full">
+        <h2 class="text-[clamp(1rem,2vw,2.5rem)] font-bold mb-2">Mountain Daylight Time (MDT)</h2>
+        <p id="mdt-time" class="time text-[clamp(1.8rem,5vw,6rem)] font-bold"></p>
+        <p id="mdt-date" class="text-[clamp(1.2rem,2.5vw,2.5rem)] font-semibold mt-1"></p>
+        <p class="text-[clamp(1rem,2vw,2.5rem)] mt-1">GMT-6:00 (Today)</p>
+      </div>
+
+      <!-- PHT -->
+      <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-[3vh] shadow-xl flex flex-col justify-center items-center h-full">
+        <h2 class="text-[clamp(1rem,2vw,2.5rem)] font-bold mb-2">Philippines Time (PHT)</h2>
+        <p id="pht-time" class="time text-[clamp(1.8rem,5vw,6rem)] font-bold"></p>
+        <p id="pht-date" class="text-[clamp(1.2rem,2.5vw,2.5rem)] font-semibold mt-1"></p>
+        <p class="text-[clamp(1rem,2vw,2.5rem)] mt-1">GMT+8:00 (Today)</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function updateTimes() {
+      const zones = [
+        { id: 'ist', locale: 'en-IN', timeZone: 'Asia/Kolkata' },
+        { id: 'est', locale: 'en-US', timeZone: 'America/New_York' },
+        { id: 'mdt', locale: 'en-US', timeZone: 'America/Denver' },
+        { id: 'pht', locale: 'en-PH', timeZone: 'Asia/Manila' },
+      ];
+
+      zones.forEach(zone => {
+        const now = new Date().toLocaleString('en-US', { timeZone: zone.timeZone });
+        const date = new Date(now);
+
+        // Time with uppercase AM/PM
+        let timeStr = date.toLocaleTimeString(zone.locale, {
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: true,
+        });
+        timeStr = timeStr.replace(/([ap])m/i, (m) => m.toUpperCase());
+        document.getElementById(`${zone.id}-time`).textContent = timeStr;
+
+        // Date (e.g., Oct 6th)
+        const day = date.getDate();
+        const month = date.toLocaleString('en-US', { month: 'short' });
+        const suffix =
+          day % 10 === 1 && day !== 11
+            ? 'st'
+            : day % 10 === 2 && day !== 12
+            ? 'nd'
+            : day % 10 === 3 && day !== 13
+            ? 'rd'
+            : 'th';
+        document.getElementById(`${zone.id}-date`).textContent = `${month} ${day}${suffix}`;
+      });
+    }
+
+    updateTimes();
+    setInterval(updateTimes, 1000);
+
+    // 🔄 Auto-refresh daily at midnight to prevent date mismatch
+    const now = new Date();
+    const msUntilMidnight =
+      new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 2) - now;
+    setTimeout(() => location.reload(), msUntilMidnight);
+  </script>
+</body>
+</html>
